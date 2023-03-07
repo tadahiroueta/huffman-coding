@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * A class used to print a binary tree of integers, for testing purposes
  * 
