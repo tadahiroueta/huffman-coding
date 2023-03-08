@@ -18,4 +18,7 @@ public class Node implements Comparable<Node> {
 
     @Override
     public int compareTo(Node other) { return weight - other.weight; } // lightest first
+
+    @Override
+    public String toString() { return value + ""; }
 }

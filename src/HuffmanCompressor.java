@@ -3,10 +3,15 @@ import java.util.Scanner;
 public class HuffmanCompressor {
     public static void compress(String filename) {
         String name = filename.substring(0, filename.lastIndexOf('.')); // remove txt extension
-        Scanner in = new Scanner(name + ".txt");
+        Scanner in = HuffmanTree.initialiseScanner(name + ".txt");
         
-        int[] frequencies = new int[256];
-        while (in.hasNextLine()) for (char character : in.nextLine().toCharArray()) frequencies[character]++;
+        int[] frequencies = new int[257];
+        while (in.hasNextLine()) {
+            for (char character : in.nextLine().toCharArray()) frequencies[character]++;
+            frequencies[10]++; // for new lines
+        }
+        frequencies[10]--; // remove last new line
+        frequencies[256] = 1; // for EOF
         in.close();
 
         HuffmanTree tree = new HuffmanTree(frequencies);

@@ -13,7 +13,7 @@ public class HuffmanTree {
 
 
     /** Initialise PrintWrite object */
-    private PrintWriter initialiseWriter(String filename) {
+    protected static PrintWriter initialiseWriter(String filename) {
         PrintWriter out;
         try { out = new PrintWriter(filename); }
         catch (FileNotFoundException e) {
@@ -23,7 +23,7 @@ public class HuffmanTree {
         return out;
     }
 
-    private Scanner initialiseScanner(String filename) {
+    protected static Scanner initialiseScanner(String filename) {
         Scanner in;
         try { in = new Scanner(new File(filename)); }
         catch (FileNotFoundException e) {
@@ -38,9 +38,12 @@ public class HuffmanTree {
 
         // create forest
         PriorityQueue<Node> forest = new PriorityQueue<Node>();
-        for (int i = 0; i < length; i++) forest.add(new Node(i, counts[i]));
+        for (int i = 0; i < length; i++) {
+            int count = counts[i];
+            if (count == 0) continue;
 
-        forest.add(new Node(length, 1)); // add EOF (end of file) marker
+            forest.add(new Node(i, counts[i]));
+        }
 
         // put it all together in a tree
         while (forest.size() > 1) {
@@ -66,7 +69,7 @@ public class HuffmanTree {
     private void initialiseValues() { codes.forEach((value, code) -> values.put(code, value)); }
 
     /**
-     * @param {int[]} counts frequency of each character in ASCII order (0-255)
+     * @param {int[]} counts frequency of each character in ASCII order (0-256)
      */
     public HuffmanTree(int[] counts) {
         initialiseTree(counts);
@@ -102,18 +105,27 @@ public class HuffmanTree {
         out.close();
     }
 
+    /** Adding padding for bit file */
+    private void pad(BitOutputStream out) { for (int i = 0; i < 7; i++) out.writeBit(0); }
+
     /** Write encoded character */
     private void encode(BitOutputStream out, int value) {
-        for (char bit : codes.get(value).toCharArray())
-            out.writeBit(bit == '1' ? 1 : 0);
+        for (char bit : codes.get(value).toCharArray()) out.writeBit(bit == '1' ? 1 : 0);
     }
 
     /** Encodes text file into binary */
     public void encode(BitOutputStream out, String filename) {
         Scanner in = initialiseScanner(filename);
-        while (in.hasNextLine()) for (char character : in.nextLine().toCharArray()) encode(out, character);
+        boolean firstLine = true;
+        while (in.hasNextLine()) {
+            if (!firstLine) encode(out, 10); // new line
+            else firstLine = false;
+
+            for (char character : in.nextLine().toCharArray()) encode(out, character);
+        }
 
         encode(out, 256); // write EOF marker
+        pad(out); // to avoid not reading parts
         in.close();
     }
 
@@ -126,12 +138,10 @@ public class HuffmanTree {
             if (!values.containsKey(code)) continue; // not full code yet
 
             int value = values.get(code);
-            
             if (value == 256) break; // if EOF marker
             
             out.print((char) value);
             code = "";
         }
         out.close();
-    }
-}
+}}
