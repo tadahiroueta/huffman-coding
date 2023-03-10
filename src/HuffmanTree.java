@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,28 +8,6 @@ public class HuffmanTree {
     private Node root; // the actuall tree is unnecessary once we have the codes
     private Map<Integer, String> codes = new HashMap<Integer, String>(); 
     private Map<String, Integer> values = new HashMap<String, Integer>(); // reverse of codes
-
-
-    /** Initialise PrintWrite object */
-    protected static PrintWriter initialiseWriter(String filename) {
-        PrintWriter out;
-        try { out = new PrintWriter(filename); }
-        catch (FileNotFoundException e) {
-            System.out.println("Error creating file for tree.");
-            return null;
-        }
-        return out;
-    }
-
-    protected static Scanner initialiseScanner(String filename) {
-        Scanner in;
-        try { in = new Scanner(new File(filename)); }
-        catch (FileNotFoundException e) {
-            System.out.println("Error reading " + filename + "."); 
-            return null;
-        }
-        return in;
-    }
 
     private void initialiseTree(int[] counts) {
         int length = counts.length;
@@ -81,7 +57,7 @@ public class HuffmanTree {
      * @param {String} codeFile file containing ASCII code and Huffman code pairs
      */
     public HuffmanTree(String codeFile) {
-        Scanner in = initialiseScanner(codeFile);
+        Scanner in = Helper.initialiseScanner(codeFile);
 
         while (in.hasNextLine()) codes.put(
             Integer.parseInt(in.nextLine().trim()), 
@@ -94,7 +70,7 @@ public class HuffmanTree {
 
     /** Writes tree to a text file in pairs of lines (ASCII code, then Huffman code) */
     public void write(String filename) {
-        PrintWriter out = initialiseWriter(filename);
+        PrintWriter out = Helper.initialiseWriter(filename);
 
         // write codes
         codes.forEach((value, code) -> {
@@ -115,14 +91,9 @@ public class HuffmanTree {
 
     /** Encodes text file into binary */
     public void encode(BitOutputStream out, String filename) {
-        Scanner in = initialiseScanner(filename);
-        boolean firstLine = true;
-        while (in.hasNextLine()) {
-            if (!firstLine) encode(out, 10); // new line
-            else firstLine = false;
+        Scanner in = Helper.initialiseScanner(filename);
 
-            for (char character : in.nextLine().toCharArray()) encode(out, character);
-        }
+        while (in.hasNext()) encode(out, in.next().charAt(0));
 
         encode(out, 256); // write EOF marker
         pad(out); // to avoid not reading parts
@@ -130,7 +101,7 @@ public class HuffmanTree {
     }
 
     public void decode(BitInputStream in, String outFile) {
-        PrintWriter out = initialiseWriter(outFile);
+        PrintWriter out = Helper.initialiseWriter(outFile);
 
         String code = "";
         while (true) {
