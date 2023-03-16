@@ -2,22 +2,22 @@ import java.util.Scanner;
 
 public class HuffmanCompressor {
     public static void compress(String filename) {
-        String name = filename.substring(0, filename.lastIndexOf('.')); // remove txt extension
-        Scanner in = Helper.initialiseScanner(name + ".txt");
+        Scanner in = Helper.initialiseScanner(filename);
         
         int[] frequencies = new int[257];
         while (in.hasNext()) frequencies[in.next().charAt(0)]++;
         frequencies[256] = 1; // for EOF
         
         HuffmanTree tree = new HuffmanTree(frequencies);
-        tree.write(name + ".code");
-        tree.encode(new BitOutputStream(name + ".short"), name + ".txt");    
+        String prefix = Helper.getFilenamePrefix(filename);
+        tree.write(prefix + ".code");
+        tree.encode(new BitOutputStream(prefix + ".short"), filename);    
 
         in.close();
     }
 
     public static void expand(String codeFile, String filename) {
-        String name = filename.substring(0, filename.lastIndexOf('.')); // remove txt extension
+        String prefix = Helper.getFilenamePrefix(filename);
         HuffmanTree tree = new HuffmanTree(codeFile);
-        tree.decode(new BitInputStream(name + ".short"), name + ".new");
+        tree.decode(new BitInputStream(filename), prefix + ".new");
 }}
