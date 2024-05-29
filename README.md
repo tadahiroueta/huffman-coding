@@ -42,15 +42,15 @@ A weighted binary tree is used to encode and later decode some text - as a symme
 A matrix is made to further compress the message, complementing the Huffman algorithm
 
 ```
-bananaaa	1                 (abcdefghijklmnopqrstuvwxyz)
-bananaaa	1,1               (bacdefghijklmnopqrstuvwxyz)
-bananaaa	1,1,13            (abcdefghijklmnopqrstuvwxyz)
-bananaaa	1,1,13,1          (nabcdefghijklmopqrstuvwxyz)
-bananaaa	1,1,13,1,1        (anbcdefghijklmopqrstuvwxyz)
-bananaaa	1,1,13,1,1,1      (nabcdefghijklmopqrstuvwxyz)
-bananaaa	1,1,13,1,1,1,0    (anbcdefghijklmopqrstuvwxyz)
-bananaaa	1,1,13,1,1,1,0,0  (anbcdefghijklmopqrstuvwxyz)
-Final       1,1,13,1,1,1,0,0  (anbcdefghijklmopqrstuvwxyz)
+bananaaa  1                 (abcdefghijklmnopqrstuvwxyz)
+bananaaa  1,1               (bacdefghijklmnopqrstuvwxyz)
+bananaaa  1,1,13            (abcdefghijklmnopqrstuvwxyz)
+bananaaa  1,1,13,1          (nabcdefghijklmopqrstuvwxyz)
+bananaaa  1,1,13,1,1        (anbcdefghijklmopqrstuvwxyz)
+bananaaa  1,1,13,1,1,1      (nabcdefghijklmopqrstuvwxyz)
+bananaaa  1,1,13,1,1,1,0    (anbcdefghijklmopqrstuvwxyz)
+bananaaa  1,1,13,1,1,1,0,0  (anbcdefghijklmopqrstuvwxyz)
+Final     1,1,13,1,1,1,0,0  (anbcdefghijklmopqrstuvwxyz)
 ```
 > This algorithm is actually used to complement the Burrows-Wheeler algorithm, but I couldn't get the time complexity low enough to be practical. So I just used it together with Huffman
 
