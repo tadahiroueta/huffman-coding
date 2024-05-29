@@ -64,17 +64,13 @@ Basically, rearranges sequences to increase the frequency of consecutive charact
 > I separated this algorithm from the rest to avoid a bottle-neck
 
 ## Installation
-<!-- Find more language syntax identifiers for code blocks here, https://github.com/jincheng9/markdown_supported_languages -->
-1. Install specific programming language compiler.
 
-    *Just a little note without non-crucial infomation*.
+1. Install a JDK
+    > I recommend [Red Hat's](https://developers.redhat.com/products/openjdk/download?source=sso)
+
 2. Clone repository
     ```sh
-    git clone https://github.com/tadahiroueta/repository.git
-    ```
-3. Install dependencies
-    ```sh
-    npm install
+    git clone https://github.com/tadahiroueta/game-of-life.git
     ```
 
 ## Usage
