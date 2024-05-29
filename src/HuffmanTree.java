@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class HuffmanTree {
-    private Node root; // the actuall tree is unnecessary once we have the codes
+    public Node root; // the actuall tree is unnecessary once we have the codes
     private Map<Integer, String> codes = new HashMap<Integer, String>(); 
     private Map<String, Integer> values = new HashMap<String, Integer>(); // reverse of codes
 

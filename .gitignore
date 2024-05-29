@@ -1,10 +1,10 @@
 /.vscode
 /bin
 /lib
-/*.code
-/*.short
-/*.new
-/*.front
-/*.back
-/*.burrows
-/*.wheeler
+*.code
+*.short
+*.new
+*.front
+*.back
+*.burrows
+*.wheeler

@@ -10,6 +10,7 @@ public class HuffmanCompressor {
         
         HuffmanTree tree = new HuffmanTree(frequencies);
         String prefix = Helper.getFilenamePrefix(filename);
+        // TreePrinter.printTree(tree.root); // inpractical and useless for large txt files
         tree.write(prefix + ".code");
         tree.encode(new BitOutputStream(prefix + ".short"), filename);    
 

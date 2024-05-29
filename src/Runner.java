@@ -32,9 +32,9 @@ public class Runner {
     }
 
     public static void main(String[] args) {
-        testTwo("short.txt");
-        // testHuffman("short.txt");
-        // testMoveToFront("short.txt");
-        // testHuffman("short.front");
+        // testHuffman("War and Peace.txt"); // huffman
+        // testMoveToFront("War and Peace.txt"); // move-to-front
+        // testTwo("War and Peace.txt"); // huffman + move-to-front
+        // testBurrowsWheeler("short.txt"); // burrows-wheeler - large time complexity
     }
 }
